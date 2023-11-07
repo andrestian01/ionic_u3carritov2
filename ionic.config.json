@@ -1,7 +1,5 @@
 {
-  "name": "19400657_pract7",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "p-ej01",
+  "integrations": {},
   "type": "angular"
 }
