@@ -1,6 +1,7 @@
 // cart.service.ts
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
+import { Buy } from '../models/buy.model';
 
 @Injectable({
     providedIn: 'root'
@@ -8,6 +9,7 @@ import { Product } from '../models/product.model';
   export class CartService {
     public cartItems:Product[]=[];
     public favoriteItems:Product[]=[];
+    public buys:Buy[] = [];
     public quantity: number = 1;
     public totalCartPrice: number = 0; // Variable para el precio total del carrito
 
@@ -59,8 +61,18 @@ import { Product } from '../models/product.model';
     }
 
     clearCart() {
-      this.cartItems = [];
+      const newBuy: Buy = {
+        products: [...this.cartItems], // Copia de los productos en el carrito
+        total: this.totalCartPrice,
+        date: new Date() // Fecha actual
+      };
+      this.buys.push(newBuy); // Agrega la nueva compra al historial de compras
+      this.cartItems = []; // Vacía el carrito después de la compra
       return this.cartItems;
+    }
+
+    getBuys(){
+      return this.buys;
     }
 
     addToFavorites(product: Product) {
