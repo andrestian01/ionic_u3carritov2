@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../models/product.model';
 import { CartService } from '../services/cart.service';
-import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -22,7 +22,7 @@ export class Tab1Page {
 
   
   
-  constructor(private cartService: CartService, public alertController: AlertController) {
+  constructor(private cartService: CartService, public toastController: ToastController) {
     this.products.push({
       name:"Coca Cola",
       price:20,
@@ -87,32 +87,34 @@ export class Tab1Page {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    this.presentAlert();
+    this.presentToast("Se agrego exitosamente al carrito");
   }
 
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Estimado cliente',
-      message: 'Usted ha agregado el producto a su carrito de compras',
-      buttons: ['OK']
-    });
+
+
+    // Define una función para mostrar un "toast"
+    async presentToast(message: string) {
+      const toast = await this.toastController.create({
+        message: message,
+        duration: 2000, // Duración en milisegundos
+        position: 'bottom', // Posición del toast (puedes cambiarla)
+      });
+      toast.present();
+    }
   
-    await alert.present();
-  }
 
   addTofavorite(product:Product){
     this.cartService.addToFavorites(product);
-    this.presentAlert2();
+    this.presentToast2("Se añadio a favoritos");
   }
 
-  async presentAlert2() {
-    const alert = await this.alertController.create({
-      header: 'Estimado cliente',
-      message: 'Usted ha agregado el producto a favoritos',
-      buttons: ['OK']
+  async presentToast2(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000, // Duración en milisegundos
+      position: 'bottom', // Posición del toast (puedes cambiarla)
     });
-  
-    await alert.present();
+    toast.present();
   }
 
 }

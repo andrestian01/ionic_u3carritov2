@@ -18,6 +18,11 @@ export class Tab3Page {
   removeFromFavorites(product: Product) {
     this.cartService.removeFromFavorites(product);
   }
+
+  addToCart(product: Product) {
+    // Llama a la función del servicio para agregar el producto al carrito
+    this.cartService.addToCart(product);
+  }
   
 }
 
